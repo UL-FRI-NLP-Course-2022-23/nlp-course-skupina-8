@@ -3,7 +3,7 @@
 #SBATCH --ntasks=1          # run one time
 #SBATCH --cpus-per-task=12  # with 12 threads
 #SBATCH --partition=gpu
-#SBATCH --gpus=2
+#SBATCH --gpus=1
 #SBATCH --time=2-00:00
 #SBATCH --job-name="nlp"
 #SBATCH --mem=32G
