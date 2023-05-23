@@ -6,20 +6,33 @@ from tqdm import tqdm
 import transformers
 
 transformers.logging.set_verbosity_error()
-DATA_PATH = "/d/hpc/home/tp1859/nlp/opus/euparl600k_ensl"
+DATA_PATH = "/d/hpc/home/tp1859/nlp/opus/europarl-llama"
 BATCH_SIZE_CPU=2048*8
 BATCH_SIZE_GPU=1024
 diversity_factor = 0.1
 
-data = euparl(path=DATA_PATH, min_length=0, max_numbers=1e10, max_special_characters=1e10,filter_identical=False,shuffle=False)
+data = euparl(
+    path=DATA_PATH,
+    orig_sl_filename = "europarl-orig-sl.out",
+    tran_sl_filename = "europarl-llamapara-sl.out",
+    parascore_filename = None,
+    min_length=0,
+    max_numbers=1e10,
+    max_length_diff=1e10,
+    max_special_characters=1e10,
+    shuffle=False,
+    sort=False,
+)
 n = len(data)
+print(f"Number of sentences: {n}")
+
 refs = data["original"][:n]
 cands = data["translated"][:n]
 
 # clear file
-open("parascores.out", "w").close()
+open("parascores-llama.out", "w").close()
 
-file = open("parascores.out", "a")
+file = open("parascores-llama.out", "a")
 iter_range = range(0, len(refs), BATCH_SIZE_CPU)
 
 for batch_start in tqdm(iter_range, desc="CPU batches"):
