@@ -18,6 +18,7 @@ pip install --no-cache-dir fschat==0.2.3
 pip install --no-cache-dir deepspeed>=0.9.1
 pip install --no-cache-dir datasets
 pip install --no-cache-dir pandas
+pip install --no-cache-dir nltk
 
 # build with:
-# srun --pty --partition=gpu -N1 -n1 -c24 --gpus=1 --mem=24000 singularity build containers/hf.sif Singularity.def
+# srun --pty --partition=gpu -N1 -n1 -c24 -G0 --mem=24000 singularity build /d/hpc/projects/FRI/tp1859/nlp_project8/lma/containers/hf.sif Singularity.def
